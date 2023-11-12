@@ -17,9 +17,11 @@ if not self.has_node("Timer"):
 
 # ----------------------------------------------------------------------------------
 # Example de function to singleton Global
-func create_timer(the_timer_var: Timer, run_a_any_function, _delay: float):
-	add_child(the_timer_var)  # adds the Timer as a child node
+func create_timer(the_timer_var: Timer, run_a_any_function, _delay: float, _one_shot: bool = true):
+	if the_timer_var.get_parent() == null:
+		add_child(the_timer_var)  # adds the Timer as a child node
+		
 	the_timer_var.wait_time = _delay  # sets the wait time to 1 second
-	the_timer_var.one_shot = true  # sets the Timer to trigger only once
+	the_timer_var.one_shot = _one_shot  # sets the Timer to trigger only once
 	the_timer_var.connect("timeout", run_a_any_function)  # connects the timeout signal to 'run a any method'
 	the_timer_var.start()  # starts the Timer
